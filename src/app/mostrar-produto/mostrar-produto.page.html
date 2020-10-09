@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="produtos()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Produto </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="cinza-claro">
+    <ion-card-header>
+      <ion-card-subtitle>
+        Produto:{{nomeProduto}}
+      </ion-card-subtitle>
+      <ion-card-title>
+        
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Categoria :{{categoria}} <br> 
+      Valor : {{valor}}  - {{unidadeMedida}}<br> 
+      Pedido Mínimo :{{qtMinimaPedido}} - {{unidadeMedida}}(s) <br> 
+      Quantidade em Estoque: {{qtEstoque}} - {{unidadeMedida}}(s) <br> 
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>

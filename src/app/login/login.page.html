@@ -1,0 +1,56 @@
+
+  <ion-app >
+    <ion-content fullscreen class="ion-padding " scroll-y="false">
+      <ion-slides>
+
+        <ion-slide >
+          <div class="slide">
+            <img src="assets/img/logoVerduras1.png"/>
+            <h2>Bem vindo!!</h2>
+            <p>Esse aplicativo <b>D.P.D - Do produtor ao Distribuidor</b> é um aplicativo que tem como objetivo facilitar a comunicação entre os produtores rurais e comércio regional.</p>
+            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+          </div>
+
+        </ion-slide>
+
+        <ion-slide >
+          <img src="assets/img/verduras2.png"/>
+         <ion-header>
+              <ion-toolbar color= "success" >
+                <ion-title >Faça seu Login</ion-title>
+               </ion-toolbar>
+         </ion-header>
+
+
+        <ion-content > 
+            <ion-list >
+          
+              <ion-item>
+                <ion-label position="floating">Usuário</ion-label>
+                <ion-input type="text" [(ngModel)]="usuario"></ion-input>
+              </ion-item>
+          
+              <ion-item>
+                <ion-label position="floating">Senha</ion-label>
+                <ion-input type="password" [(ngModel)]="senha"></ion-input>
+              </ion-item>
+          
+            </ion-list>
+          
+            <div>
+              <ion-button expand="block" padding color="success" (click)="login()">Entrar</ion-button>
+            
+            </div>
+            <div>
+              <ion-button expand="block" padding color="warning" (click)="cadastrar()">Cadastrar</ion-button>
+            
+            </div>
+          </ion-content>
+
+        </ion-slide>
+
+      
+      </ion-slides>
+    </ion-content>
+  </ion-app>
+

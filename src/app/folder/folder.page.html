@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo-home">{{nivel}}:{{nome}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  (click)="logout()">
+        <ion-icon slot="end" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-buttons>
+
+
+    <ion-button *ngIf="nivel == 'Admin'" color="primary">Admim</ion-button>
+    <ion-button *ngIf="nivel == 'Tesoureiro'" color="danger">Tesoureiro</ion-button>
+</ion-buttons>
+
+
+<p>Bem vindo ao D.P.D, escolha uma opção para começar!</p>
+<ion-list >
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col>
+        <img  class= "image" src="assets/img/verduras4.png"/>
+            <div position="floating">
+              <ion-button position="floating" expand="block" padding color="danger" (click)="login()"> Minha Lista de Pedidos</ion-button>
+
+            </div>
+      </ion-col>
+
+      
+
+    <ion-col>
+      <img  class= "image" src="assets/img/verduras5.png"/>
+          <div position="floating">
+            <ion-button position="floating" expand="block" padding color="danger" (click)="cadastrar()">Minha Lista de Produtos</ion-button>
+
+          </div>
+    </ion-col>
+</ion-row>
+</ion-grid>
+
+</ion-list>
+</ion-content>

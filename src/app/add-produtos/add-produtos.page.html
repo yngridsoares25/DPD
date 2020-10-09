@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="produtos()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Produto </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+   
+    <ion-col size="6" 
+      *ngFor="let photo of photoService.photos; index as position; let i = index;">
+  
+        <ion-img [src]="photo.webviewPath"></ion-img>
+        <ion-button *ngIf="photoService.photos.length > 0" position="floating" expand="block" padding color="danger" (click)="deletarFoto(i)"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-col>
+
+  
+  <ion-item> 
+    <ion-button  position="floating"  padding color="success" (click)="addPhotoToGallery()"><ion-icon name="camera"></ion-icon></ion-button>
+  </ion-item>
+    <ion-card-header>
+
+        <ion-item>
+          <ion-label position="floating">
+            Nome do Produto
+          </ion-label>
+          <ion-input [(ngModel)]="nomeProduto">
+
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Categoria</ion-label>
+          <ion-select placeholder="Selecione" [(ngModel)]="categoria" >
+            <ion-select-option value="Frutas">Frutas</ion-select-option>
+            <ion-select-option value="Legumes">Legumes</ion-select-option>
+            <ion-select-option value="Verduras">Verduras</ion-select-option>
+            <ion-select-option value="Carnes">Carnes</ion-select-option>
+            <ion-select-option value="Aves">Aves</ion-select-option>
+            <ion-select-option value="Laticínios">Laticínios</ion-select-option>
+            <ion-select-option value="Sucos">Sucos</ion-select-option>
+            <ion-select-option value="Ovos">Ovos</ion-select-option>
+          
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+            Valor
+          </ion-label>
+          <ion-input type="decimal" placeholder="R$" [(ngModel)]="valor"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Unidade de Medida</ion-label>
+          <ion-select placeholder="Selecione" [(ngModel)]="unidadeMedida">
+            <ion-select-option value="Kg">Kg</ion-select-option>
+            <ion-select-option value="Unidade">Unidade</ion-select-option>
+            <ion-select-option value="Litro">Litro</ion-select-option>
+            <ion-select-option value="g">g</ion-select-option>
+           
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+            Pedido Mínimo 
+          </ion-label>
+          <ion-input type="number"  [(ngModel)]="qtMinimaPedido"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+            Quantidade em Estoque
+          </ion-label>
+          <ion-input type="number"  [(ngModel)]="qtEstoque"></ion-input>
+        </ion-item>
+
+
+      
+ 
+</ion-card-header>
+</ion-card>
+
+<ion-button *ngIf="!id" color="success" expand="block" (click)="cadastrar()">
+  Salvar
+</ion-button>
+
+<ion-button *ngIf="id" color="primary" expand="block" (click)="editar()">
+  Editar
+</ion-button>
+
+
+
+</ion-content>

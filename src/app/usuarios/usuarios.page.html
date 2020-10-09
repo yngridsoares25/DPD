@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Lista de Usuários</ion-title>
+    <ion-buttons slot="primary" (click)="addUsuarios()">
+      <ion-button >Novo
+        <ion-icon slot="end" name="add"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-row class="verde-primary padding-lateral">
+  
+    <ion-input placeholder="Buscar" [(ngModel)]="nome" type="search" (input)="carregar()" ></ion-input>
+  
+    <ion-buttons (click)="carregar()">
+      <ion-button>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  
+</ion-row>
+
+
+
+<ion-content class="cinza-claro" class="ion-padding">
+<ion-list>
+  <ion-item-sliding *ngFor="let usuario of usuarios">
+    <ion-item-options side="start">
+      <ion-item-option (click)="editar(usuario.id, usuario.nome, usuario.usuario, usuario.senha_original, usuario.nivel)">
+        Editar
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item><ion-label>{{usuario.nome}}</ion-label></ion-item>
+
+    <ion-item-options side="end">
+      <ion-item-option (click)="mostrar(usuario.id, usuario.nome, usuario.usuario, usuario.senha_original, usuario.nivel)" color="secondary">
+        Mostrar
+      </ion-item-option>
+      <ion-item-option (click)="excluir(usuario.id)" color="danger">
+        Excluir
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="arrow-dropdown"
+    
+    refreshingSpinner="circles"
+    refreshingText="Carregando...">
+  </ion-refresher-content>
+</ion-refresher>
+
+
+
+
+
+
+<ion-infinite-scroll  (ionInfinite)="loadData($event)">
+<ion-infinite-scroll-content
+  loadingSpinner="bubbles"
+  loadingText="Carregando mais dados">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+
+</ion-content>
