@@ -37,7 +37,7 @@
         <b>Pedido Mínimo:</b> {{pedido.qtMinimaPedido}} - {{pedido.unidadeMedida}}(s) <br> 
         <b>Quantidade em Estoque:</b> {{pedido.qtEstoque}} - {{pedido.unidadeMedida}}(s) <br> 
         <b>Vendedor:</b> {{pedido.usuario_vendedor}}  <br> 
-        <ion-row>
+        <ion-row  *ngIf="nivelUsuario == 'Produtor'">
           <ion-col size="6"> 
             <ion-button  color="danger">
               <ion-label>Recusar</ion-label>

@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/services/post';
 import { DataService } from '../data.service';
+import { Storage} from '@capacitor/core';
 
 @Component({
   selector: 'app-mostrar-pedido',
   templateUrl: './mostrar-pedido.page.html',
   styleUrls: ['./mostrar-pedido.page.scss'],
+  
 })
 export class MostrarPedidoPage implements OnInit {
 
   pedido: any ;
-
+  nivelUsuario:string="";
+  idUsuario: string="";
 
   dadosLogin: any;
   dt_atual: string ="" ;
@@ -20,7 +23,7 @@ export class MostrarPedidoPage implements OnInit {
 
   ngOnInit() {
 
-    
+    this.obterDadosUsuario();
 
     this.dt_atual = this.dataHoje();
     this.activatedRoute.queryParams.subscribe(params => {
@@ -44,5 +47,12 @@ export class MostrarPedidoPage implements OnInit {
     return [dia, mes, ano].join('/');
   }
 
-
+  obterDadosUsuario(){
+    this.dadosLogin =  Storage.get({ key: 'session_storage' });
+  
+    const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
+    this.idUsuario = obj.id;
+    this.nivelUsuario = obj.nivel;
+          
+  }
 }
