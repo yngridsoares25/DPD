@@ -46,7 +46,7 @@ const routes: Routes = [
     loadChildren: () => import('./add-produtos/add-produtos.module').then( m => m.AddProdutosPageModule)
   },
   {
-    path: 'add-produtos/:id/:nomeProduto/:categoria/:valor/:idUsuario/:unidadeMedida/:qtMinimaPedido/:qtEstoque',
+    path: 'add-produtos/:idProduto/:nomeProduto/:categoria/:valor/:idUsuario/:unidadeMedida/:qtMinimaPedido/:qtEstoque',
     loadChildren: () => import('./add-produtos/add-produtos.module').then( m => m.AddProdutosPageModule)
   },
   {
