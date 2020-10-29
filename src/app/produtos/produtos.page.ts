@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/services/post';
-
+import { Storage} from '@capacitor/core';
 
 @Component({
   selector: 'app-produtos',
@@ -14,6 +14,10 @@ export class ProdutosPage implements OnInit {
   limit : number = 10;
   start : number = 0;
   nomeProduto : string = "";
+  dadosLogin: any;
+  nivelUsuario:string="";
+  groupCategoria: string="";
+  idUsuario: string="";
 
   constructor(private router: Router,  private provider: Post) { }
 
@@ -32,11 +36,15 @@ export class ProdutosPage implements OnInit {
   }
 
   carregar(){
+    this.obterDadosUsuario();
     return new Promise(resolve => {
+  
       this.produtos = [];
       let dados = {
         requisicao : 'listar',
         nomeProduto : this.nomeProduto, 
+        idUsuario : this.idUsuario,
+        nivelUsuario :this.nivelUsuario,
         limit : this.limit,
         start : this.start
         };
@@ -52,6 +60,7 @@ export class ProdutosPage implements OnInit {
           }
         }
          
+       
          resolve(true);
          
         });
@@ -59,18 +68,21 @@ export class ProdutosPage implements OnInit {
     
   }
 
-  editar(id, nomeProduto, categoria, valor,  unidadeMedida, qtEstoque,qtMinimaPedido ,idUsuario){
+  editar(id, nomeProduto, categoria, valor,  unidadeMedida, qtEstoque,qtMinimaPedido ,idFornecedor){
     // tslint:disable-next-line: max-line-length
 
-    this.router.navigate(['/add-produtos/' + id + '/' + nomeProduto + '/' + categoria + '/' + valor  + '/' + idUsuario + '/'+ unidadeMedida +'/' + qtMinimaPedido + '/' + qtEstoque ]);
+    this.router.navigate(['/add-produtos/' + id + '/' + nomeProduto + '/' + categoria + '/' + valor  + '/' + idFornecedor + '/'+ unidadeMedida +'/' + qtMinimaPedido + '/' + qtEstoque ]);
   }
 
   
-  mostrar(id, nomeProduto, categoria, valor,  unidadeMedida, qtEstoque,qtMinimaPedido ,idUsuario){
+  mostrar(id, nomeProduto, categoria, valor,  unidadeMedida, qtEstoque,qtMinimaPedido ,idFornecedor){
     // tslint:disable-next-line: max-line-length
-    this.router.navigate(['/mostrar-produto/'  + id + '/' + nomeProduto + '/' + categoria + '/' + valor  + '/' + idUsuario + '/'  + unidadeMedida + '/' + qtMinimaPedido + '/' + qtEstoque ]);
+    this.router.navigate(['/mostrar-produto/'  + id + '/' + nomeProduto + '/' + categoria + '/' + valor  + '/' + idFornecedor + '/'  + unidadeMedida + '/' + qtMinimaPedido + '/' + qtEstoque ]);
   }
+  fazerPedido(produto){
 
+    this.router.navigate(['/add-pedido'], { queryParams: produto,  skipLocationChange: true });
+  }
 
   excluir(id){
     return new Promise(resolve => {
@@ -112,7 +124,18 @@ loadData(event) {
   
 
 }
-  
+obterDadosUsuario(){
+      this.dadosLogin =  Storage.get({ key: 'session_storage' });
 
+      const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
+      this.idUsuario = obj.id;
+      this.nivelUsuario = obj.nivel;
+            
+}
+
+
+atualizarCategoria(categoria){
+  this.groupCategoria= categoria;
+}
 
 }

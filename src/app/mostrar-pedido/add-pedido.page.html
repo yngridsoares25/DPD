@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="produtos()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Seu Pedido </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="verde-claro">
+    <ion-card-header>
+      <ion-row>
+      <ion-card-title>
+       {{nomeProduto}}
+      </ion-card-title>
+    </ion-row>
+    <ion-row>
+      <ion-slides>
+        <ion-slide>
+         <img src="assets/img/manga.jpg" width="300" height="300"/>
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/img/manga2.jpg" width="300" height="300"/>
+         </ion-slide>
+         <ion-slide>
+          <img src="assets/img/manga3.jpg" width="300" height="300"/>
+         </ion-slide>
+      </ion-slides>
+    </ion-row>
+      <ion-card-subtitle>
+        Categoria :{{categoria}} <br>
+        Valor : {{valor}} R$ - {{unidadeMedida}}<br> 
+        Pedido Mínimo : {{qtMinimaPedido}} - {{unidadeMedida}}(s) <br> 
+        Quantidade em Estoque: {{qtEstoque}} - {{unidadeMedida}}(s) <br> 
+      </ion-card-subtitle>
+
+    </ion-card-header>
+    <ion-card-content>
+  
+        <ion-label>Valídade do Pedido</ion-label>      
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                  <ion-label >De</ion-label> 
+                  <ion-datetime (value)="dt_atual" placeholder="De" displayFormat="DD/MM/YYYY" done-text="Ok" cancel-text="Cancelar"  [(ngModel)]="data_inicial"></ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+                  <ion-label >Até</ion-label> 
+                  <ion-datetime (value)="dt_atual" placeholder="Até" displayFormat="DD/MM/YYYY" done-text="Ok" cancel-text="Cancelar"  [(ngModel)]="data_final"></ion-datetime>
+            </ion-col>      
+          </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-label>Horários de Entrega</ion-label>      
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                  <ion-label >Primeira</ion-label> 
+                  <ion-datetime value="08:00" placeholder="" displayFormat="HH:mm" done-text="Ok" cancel-text="Cancelar" [(ngModel)]="horario_entrega_1"></ion-datetime>
+            </ion-col>
+            <ion-col size="6">
+                  <ion-label >Segunda</ion-label> 
+                  <ion-datetime value="18:00" placeholder="" displayFormat="HH:mm" done-text="Ok" cancel-text="Cancelar" [(ngModel)]="horario_entrega_2"></ion-datetime>
+            </ion-col>      
+          </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Dias de Entrega</ion-label>
+          <ion-select placeholder="Selecione" multiple  >
+            <ion-select-option value="Segunda">Segunda</ion-select-option>
+            <ion-select-option value="Terça">Terça</ion-select-option>
+            <ion-select-option value="Quarta">Quarta</ion-select-option>
+            <ion-select-option value="Quinta">Quinta</ion-select-option>
+            <ion-select-option value="Sexta">Sexta</ion-select-option>
+            <ion-select-option value="Sabado">Sábado</ion-select-option>
+            <ion-select-option value="Domingo">Domingo</ion-select-option>
+          
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            Quantidade 
+          </ion-label>
+          <ion-input type="number"  [(ngModel)]="qtProduto"></ion-input>
+        </ion-item> 
+        
+        
+        <ion-item>
+          <ion-label position="stacked">Endereço da Entrega</ion-label>
+          <ion-input placeholder="Endereço" [(ngModel)]="endereco"></ion-input>
+          <ion-input placeholder="Cidade" [(ngModel)]="cidade"></ion-input>
+          <ion-input placeholder="Estado" [(ngModel)]="estado"></ion-input>
+          <ion-input placeholder="Cep" [(ngModel)]="cep"></ion-input>
+        </ion-item>
+   
+      </ion-card-content>
+  </ion-card>
+  <ion-button *ngIf="!id" color="success" expand="block" (click)="cadastrar()">
+    Salvar
+  </ion-button>
+  
+  <ion-button *ngIf="id" color="primary" expand="block" (click)="editar()">
+    Editar
+  </ion-button>
+</ion-content>

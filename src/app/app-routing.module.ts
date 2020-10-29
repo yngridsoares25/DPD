@@ -57,10 +57,18 @@ const routes: Routes = [
     path: 'mostrar-produto/:id/:nomeProduto/:categoria/:valor/:idUsuario/:unidadeMedida/:qtMinimaPedido/:qtEstoque',
     loadChildren: () => import('./mostrar-produto/mostrar-produto.module').then( m => m.MostrarProdutoPageModule)
   },
-
-
-
-
+  {
+    path: 'add-pedido',
+    loadChildren: () => import('./add-pedido/add-pedido.module').then( m => m.AddPedidoPageModule)
+  },
+  {
+    path: 'pedidos',
+    loadChildren: () => import('./pedidos/pedidos.module').then( m => m.PedidosPageModule)
+  },
+  {
+    path: 'mostrar-pedido',
+    loadChildren: () => import('./mostrar-pedido/mostrar-pedido.module').then( m => m.MostrarPedidoPageModule)
+  },
 ];
 
 @NgModule({

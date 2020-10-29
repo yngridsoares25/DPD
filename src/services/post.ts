@@ -1,5 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Pedido } from './pedido.interface';
 import 'rxjs/add/operator/map';
 
 
@@ -19,5 +20,14 @@ export class Post{
 
             let url = this.server + api;
             return this.http.post(url, JSON.stringify(dados), httpOptions).map(res => res);
+        }
+
+        dadosApiObject(dados: any, api: string, pedido:Pedido[]){
+            const httpOptions = {
+                headers: new HttpHeaders({'Content-Type' : 'application/json'})
+                }
+
+            let url = this.server + api;
+            return this.http.post(url, JSON.stringify(dados), httpOptions).map(res => pedido);
         }
 }

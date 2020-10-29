@@ -63,6 +63,7 @@
             <ion-select-option value="Unidade">Unidade</ion-select-option>
             <ion-select-option value="Litro">Litro</ion-select-option>
             <ion-select-option value="g">g</ion-select-option>
+            <ion-select-option value="g">Caixa</ion-select-option>
            
           </ion-select>
         </ion-item>
@@ -87,11 +88,11 @@
 </ion-card-header>
 </ion-card>
 
-<ion-button *ngIf="!id" color="success" expand="block" (click)="cadastrar()">
+<ion-button *ngIf="!idProduto" color="success" expand="block" (click)="cadastrar()">
   Salvar
-</ion-button>
+</ion-button> 
 
-<ion-button *ngIf="id" color="primary" expand="block" (click)="editar()">
+<ion-button *ngIf="idProduto" color="primary" expand="block" (click)="editar()">
   Editar
 </ion-button>
 

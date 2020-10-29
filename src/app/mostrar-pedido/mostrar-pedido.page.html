@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-buttons slot="start" (click)="goToBack()">
+      <ion-button>
+        <ion-icon  name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="verde-claro">
+    <ion-card-header>
+      <ion-row>
+      <ion-card-title>
+       {{pedido.nomeProduto}}
+      </ion-card-title>
+    </ion-row>
+    <ion-row>
+      <ion-slides>
+        <ion-slide>
+         <img src="assets/img/manga.jpg" width="300" height="300"/>
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/img/manga2.jpg" width="300" height="300"/>
+         </ion-slide>
+         <ion-slide>
+          <img src="assets/img/manga3.jpg" width="300" height="300"/>
+         </ion-slide>
+      </ion-slides>
+    </ion-row>
+
+      <ion-card-subtitle>
+        <b>Categoria:</b>{{pedido.categoria}} <br>
+        <b>Valor:</b> {{pedido.valor}} R$ - {{pedido.unidadeMedida}}<br> 
+        <b>Pedido Mínimo:</b> {{pedido.qtMinimaPedido}} - {{pedido.unidadeMedida}}(s) <br> 
+        <b>Quantidade em Estoque:</b> {{pedido.qtEstoque}} - {{pedido.unidadeMedida}}(s) <br> 
+        <b>Vendedor:</b> {{pedido.usuario_vendedor}}  <br> 
+        <ion-row>
+          <ion-col size="6"> 
+            <ion-button  color="danger">
+              <ion-label>Recusar</ion-label>
+            </ion-button>
+          </ion-col>  
+          <ion-col size="6"> 
+            <ion-button color="primary">
+              <ion-label>Aceitar</ion-label>
+            </ion-button>
+          </ion-col>
+       </ion-row>   
+      </ion-card-subtitle>
+
+    </ion-card-header>
+    <ion-card-content>
+      <b>Peíodo de Validade:</b>{{pedido.data_inicial}} até {{pedido.data_final}} <br>
+    <b>Horários de Entrega:</b> {{pedido.horario_entrega_1}} <span *ngIf="pedido.horario_entrega_2 != '' "> e {{pedido.horario_entrega_2}}</span><br> 
+    <b> Dias de Entrega:</b> <br> 
+    <b>Valor Total do Pedido por Entrega:</b> R${{pedido.valor * pedido.qtProduto}}  <br> 
+    <b>Endereço de Entrega: </b><br> {{pedido.endereco}}    <br>  
+      {{pedido.cidade}}  -{{pedido.estado}}  <br>  
+      cep: {{pedido.cep}}    <br>  
+      
+
+
+     </ion-card-content>
+  </ion-card>
+  
+</ion-content>

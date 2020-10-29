@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Lista de Produtos</ion-title>
-    <ion-buttons slot="primary" (click)="addProdutos()">
+    <ion-buttons  *ngIf="nivelUsuario == 'Produtor'" slot="primary" (click)="addProdutos()">
       <ion-button >Novo
         <ion-icon slot="end" name="add"> </ion-icon>
       </ion-button>
@@ -32,19 +32,35 @@
 <ion-content class="cinza-claro" class="ion-padding">
   <ion-list>
     <ion-item-sliding *ngFor="let produto of produtos">
-      <ion-item-options side="start">
-        <ion-item-option (click)="editar(produto.id, produto.nomeProduto, produto.categoria,produto.valor,produto.unidadeMedida, produto.qtEstoque, produto.qtMinimaPedido , produto.idUsuario,produto.urlImagem)">
+    
+      <ion-item-options *ngIf="nivelUsuario == 'Produtor'" side="start">
+        <ion-item-option (click)="editar(produto.idProduto, produto.nomeProduto, produto.categoria,produto.valor,produto.unidadeMedida, produto.qtEstoque, produto.qtMinimaPedido , produto.idUsuario,produto.urlImagem)">
           Editar
         </ion-item-option>
       </ion-item-options>
-  
-      <ion-item><ion-label>{{produto.nomeProduto}}</ion-label></ion-item>
-  
+      <ion-item *ngIf="produto.categoria == groupCategoria"> 
+        <h1>{{produto.categoria}}</h1>
+      </ion-item>
+      <ion-item>
+       
+          <ion-avatar slot="start">
+            <img src="assets/img/manga.jpg">
+          </ion-avatar>
+          <ion-label>{{produto.nomeProduto}} - R${{produto.valor}} - {{produto.unidadeMedida}}<br>
+                      Vendedor: {{produto.nomeVendedor}}<br>
+                      
+          <ion-button size="small"  *ngIf="nivelUsuario == 'Cliente'"  (click)="fazerPedido(produto)">
+          <ion-icon slot="end" name="cart"> </ion-icon><span class="ion-text-capitalize">Comprar</span></ion-button> 
+         </ion-label>
+   
+      </ion-item>
+     
+
       <ion-item-options side="end">
-        <ion-item-option (click)="mostrar(produto.id, produto.nomeProduto, produto.categoria,produto.valor,produto.unidadeMedida, produto.qtEstoque, produto.qtMinimaPedido , produto.idUsuario,produto.urlImagem)" color="secondary">
+        <ion-item-option (click)="mostrar(produto.idProduto, produto.nomeProduto, produto.categoria,produto.valor,produto.unidadeMedida, produto.qtEstoque, produto.qtMinimaPedido , produto.idUsuario,produto.urlImagem)" color="secondary">
           Mostrar
         </ion-item-option>
-        <ion-item-option (click)="excluir(produto.id)" color="danger">
+        <ion-item-option *ngIf="nivelUsuario == 'Produtor'" (click)="excluir(produto.id)" color="danger">
           Excluir
         </ion-item-option>
       </ion-item-options>
@@ -60,11 +76,6 @@
       refreshingText="Carregando...">
     </ion-refresher-content>
   </ion-refresher>
-  
-  
-  
-  
-  
   
   <ion-infinite-scroll  (ionInfinite)="loadData($event)">
   <ion-infinite-scroll-content

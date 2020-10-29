@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="titulo-home">{{nivel}}:{{nome}}</ion-title>
+    <ion-title class="titulo-home">{{nome}}</ion-title>
     <ion-buttons slot="end">
       <ion-button  (click)="logout()">
         <ion-icon slot="end" name="log-out"></ion-icon>
@@ -16,36 +16,65 @@
   <ion-buttons>
 
 
-    <ion-button *ngIf="nivel == 'Admin'" color="primary">Admim</ion-button>
-    <ion-button *ngIf="nivel == 'Tesoureiro'" color="danger">Tesoureiro</ion-button>
+    <ion-button *ngIf="nivel == 'Produtor'" color="primary">{{nivel}}</ion-button>
+    <ion-button *ngIf="nivel == 'Cliente'" color="danger">{{nivel}}</ion-button>
 </ion-buttons>
 
 
-<p>Bem vindo ao D.P.D, escolha uma opção para começar!</p>
+<p>{{nome}} Bem vindo ao D.P.D, escolha uma opção para começar!</p>
 <ion-list >
   <ion-grid>
 
     <ion-row>
 
-      <ion-col>
-        <img  class= "image" src="assets/img/verduras4.png"/>
-            <div position="floating">
-              <ion-button position="floating" expand="block" padding color="danger" (click)="login()"> Minha Lista de Pedidos</ion-button>
-
-            </div>
+      <ion-col size="6" >
+       
       </ion-col>
 
       
 
-    <ion-col>
-      <img  class= "image" src="assets/img/verduras5.png"/>
-          <div position="floating">
-            <ion-button position="floating" expand="block" padding color="danger" (click)="cadastrar()">Minha Lista de Produtos</ion-button>
-
-          </div>
+    <ion-col size="6"> 
+     
     </ion-col>
 </ion-row>
 </ion-grid>
 
 </ion-list>
+
+
+<ion-toolbar>
+  <ion-segment value="all">
+    <ion-segment-button value="" (click)="goToPedidos()"> 
+      <ion-card color="danger" >
+      <ion-card-header>
+           <img  class= "image" src="assets/img/verduras5.png"/>
+          
+      </ion-card-header>
+      
+      <ion-label >
+          <ion-chip color="dark">
+            <ion-icon name="receipt"></ion-icon>
+             Pedidos  &nbsp; <ion-badge color="light">{{qtPedidos}}</ion-badge>
+        
+           </ion-chip>
+       
+      </ion-label>
+      </ion-card>   </ion-segment-button>
+    <ion-segment-button value="favorites" (click)="goToProdutos()"> <ion-card color="danger">
+      <ion-card-header>
+         <img  class= "image" src="assets/img/verduras1.png"/>
+         
+      </ion-card-header>
+      <ion-label>  
+
+       <ion-chip color="dark">
+         <ion-icon name="nutrition"></ion-icon>
+          Produtos &nbsp; <ion-badge color="light">{{qtProduto}}</ion-badge>
+        
+       </ion-chip>
+
+     </ion-label>    
+   </ion-card>   </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
 </ion-content>

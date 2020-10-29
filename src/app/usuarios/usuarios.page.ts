@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/services/post';
+import { Storage} from '@capacitor/core';
 
 @Component({
   selector: 'app-usuarios',
@@ -15,6 +16,9 @@ export class UsuariosPage implements OnInit {
   start : number = 0;
   nome : string = "";
 
+  idUsuarioLogado: string;
+  dadosLogin: any;
+
   constructor(private router: Router,  private provider: Post) { }
 
   ngOnInit() {
@@ -24,6 +28,7 @@ export class UsuariosPage implements OnInit {
     this.usuarios = [];
     this.start = 0;
     this.carregar();
+    this.obterDadosStorage();
   }
 
   addUsuarios(){
@@ -82,6 +87,13 @@ export class UsuariosPage implements OnInit {
     });
   }
 
+  obterDadosStorage() {
+    this.dadosLogin =  Storage.get({ key: 'session_storage' });
+
+    const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
+    console.log(obj);
+    this.idUsuarioLogado = obj.id;
+}
 
 
 

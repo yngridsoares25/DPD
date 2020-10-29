@@ -21,8 +21,8 @@ export class AddProdutosPage implements OnInit {
   qtEstoque: string ="" ;
   qtMinimaPedido: string ="" ;
   urlImagem: string ="" ;
-  id: string = "";
-  idUsuario: String ="";
+  idProduto: string = "";
+  idFornecedor: String ="";
   dadosLogin: any;
   public dadosStorage:  Usuario[] = [];
   
@@ -36,11 +36,11 @@ export class AddProdutosPage implements OnInit {
     await this.photoService.loadSaved();
 
     this.actRouter.params.subscribe((data:any)=>{
-      this.id = data.id;
+      this.idProduto = data.idProduto;
       this.nomeProduto = data.nomeProduto;
       this.categoria = data.categoria;
       this.valor = data.valor;
-      this.idUsuario = data.idUsuario;
+      this.idFornecedor = data.idFornecedor;
       this.unidadeMedida = data.unidadeMedida;
       this.qtMinimaPedido = data.qtMinimaPedido;
       this.qtEstoque = data.qtEstoque;
@@ -50,14 +50,11 @@ export class AddProdutosPage implements OnInit {
   }
   
   obterDadosStorage() {
-
             this.dadosLogin =  Storage.get({ key: 'session_storage' });
 
             const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
-            console.log(obj.id);
+            console.log(obj);
             return obj.id;
-    
-
   }
 
 
@@ -73,7 +70,7 @@ export class AddProdutosPage implements OnInit {
         unidadeMedida : this.unidadeMedida, 
         qtEstoque : this.qtEstoque, 
         qtMinimaPedido : this.qtMinimaPedido,
-        idUsuario:this.obterDadosStorage(), 
+        idFornecedor:this.obterDadosStorage(), 
         urlImagem: "",
         };
 
@@ -90,13 +87,13 @@ export class AddProdutosPage implements OnInit {
       
       let dados = {
         requisicao : 'editar',
-        id : this.id, 
+        idProduto : this.idProduto, 
         nomeProduto : this.nomeProduto, 
         categoria : this.categoria, 
         valor : this.valor, 
         unidadeMedida : this.unidadeMedida, 
         qtMinimaPedido : this.qtMinimaPedido,
-        idUsuario:this.obterDadosStorage(), 
+        idFornecedor:this.obterDadosStorage(), 
         urlImagem: "",
         qtEstoque : this.qtEstoque, 
         };

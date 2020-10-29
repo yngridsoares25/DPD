@@ -25,11 +25,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
-.cinza-claro{
-    background-color: #fcfcfc;
+/*
+.verde-claro{
+    background-color: #e0ffdc;
 }
-
+.verde-medio{
+    background-color: #bbe7b0;
+}
+*/
 .verde-primary{
     background-color:rgb(2, 92, 69);
     color:#FFF;
@@ -41,10 +44,9 @@
 }
 
 
-.fundo-app{
-    background-color: #bbe7b0;
-}
+
+
 
 ion-content{
-    --ion-background-color:#bbe7b0;
-  }  
+    --ion-background-color:#b3dda8;
+}  

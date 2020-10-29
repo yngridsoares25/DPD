@@ -8,9 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MostrarProdutoPage implements OnInit {
 
-  id: string = "";
+  idProduto: string = "";
   nomeProduto: string = "";
-  idUsuario: string = "";
+  idFornecedor: string = "";
   categoria: string = "";
   valor: string = "";
   unidadeMedida: string = "";
@@ -21,11 +21,11 @@ export class MostrarProdutoPage implements OnInit {
 
   ngOnInit() {
     this.actRouter.params.subscribe((data:any)=>{
-      this.id = data.id;
+      this.idProduto = data.idProduto;
       this.nomeProduto = data.nomeProduto;
       this.categoria = data.categoria;
       this.valor = data.valor;
-      this.idUsuario = data.idUsuario;
+      this.idFornecedor = data.idFornecedor;
       this.unidadeMedida = data.unidadeMedida;
       this.qtMinimaPedido = data.qtMinimaPedido;
       this.qtEstoque = data.qtEstoque;
