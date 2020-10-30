@@ -52,7 +52,7 @@ export class AddUsuarioPage implements OnInit {
   }
 
   Usuarios(){
-    this.router.navigate(['/usuarios']);
+    this.router.navigate(['/' + this.urlVoltar]);
   }
 
   cadastrar(){
