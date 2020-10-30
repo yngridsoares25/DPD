@@ -91,7 +91,9 @@ export class LoginPage implements OnInit {
 
   }
 
-
+  addUsuarios(){
+    this.router.navigate(['/add-usuario/login' ]);
+  }
 
 
 }

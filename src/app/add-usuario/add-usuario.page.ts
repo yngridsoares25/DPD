@@ -15,6 +15,7 @@ export class AddUsuarioPage implements OnInit {
   senha: string = "";
   nivel: string = "";
   id: string = "";
+  urlVoltar: string="";
 
   // tslint:disable-next-line: max-line-length
   constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toastController: ToastController) { }
@@ -27,6 +28,12 @@ export class AddUsuarioPage implements OnInit {
       this.senha = data.senha;
       this.nivel = data.nivel;
 
+      console.log(data.urlVoltar);
+      if(data.urlVoltar == undefined){
+        this.urlVoltar = "usuarios";
+      }else{
+        this.urlVoltar = 'login';
+      }
     });
   }
 
@@ -60,7 +67,7 @@ export class AddUsuarioPage implements OnInit {
         };
 
         this.provider.dadosApi(dados, 'apiUsuarios.php').subscribe(data => {
-          this.router.navigate(['/usuarios']);
+          this.router.navigate(['/'+ this.urlVoltar]);
           this.mensagemSalvar();
         });
     });

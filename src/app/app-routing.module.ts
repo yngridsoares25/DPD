@@ -69,6 +69,10 @@ const routes: Routes = [
     path: 'mostrar-pedido',
     loadChildren: () => import('./mostrar-pedido/mostrar-pedido.module').then( m => m.MostrarPedidoPageModule)
   },
+  {
+    path: 'add-usuario/:urlVoltar',
+      loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
+    },
 ];
 
 @NgModule({
