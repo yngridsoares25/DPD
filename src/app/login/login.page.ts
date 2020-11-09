@@ -54,7 +54,7 @@ export class LoginPage implements OnInit {
         senha : this.senha
         
         };
-
+        console.log(dados);
         this.provider.dadosApi(dados, 'apiUsuarios.php').subscribe(async data => {
         var alert = data['msg'];
         if(data['success']) {

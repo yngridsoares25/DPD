@@ -29,16 +29,19 @@ export class FolderPage  {
       this.contarProdutos();
       this.contarPedidos();
       this.obterDadosStorage();
-
+      this.obterDadosUsuarioPhone();
+ 
 
   }
   obterDadosStorage() {
     this.dadosLogin =  Storage.get({ key: 'session_storage' });
 
+    console.log(this.dadosLogin);
     const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
 
     this.nome = obj.nome;
     this.nivel = obj.nivel;
+    
 }
 
   logout(){
@@ -107,6 +110,15 @@ export class FolderPage  {
     this.idUsuario = obj.id;
     this.nivelUsuario = obj.nivel;
           
+}
+
+obterDadosUsuarioPhone(){
+  this.storage.getItem('session_storage').then((res)=>{
+    this.dadosLogin = res;
+    this.nome = this.dadosLogin.nome;
+    this.nivel = this.dadosLogin.nivel;
+  })
+        
 }
 
 goToProdutos(){

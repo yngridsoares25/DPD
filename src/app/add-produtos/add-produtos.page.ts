@@ -5,6 +5,7 @@ import { PhotoService } from '../services/photo.service';
 import { ActionSheetController, LoadingController, Platform, ToastController } from '@ionic/angular';
 import { Post } from './../../services/post';
 import { Storage} from '@capacitor/core';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-add-produtos',
@@ -24,15 +25,18 @@ export class AddProdutosPage implements OnInit {
   idProduto: string = "";
   idFornecedor: String ="";
   dadosLogin: any;
+  idUsuario: string = "";
+  nivelUsuario: string = "";
   public dadosStorage:  Usuario[] = [];
   
   // tslint:disable-next-line: max-line-length
-  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toastController: ToastController,public photoService: PhotoService) { }
+  constructor(private actRouter: ActivatedRoute, private router: Router, private provider: Post, public toastController: ToastController,public photoService: PhotoService, private storage: NativeStorage) { }
 
 
 
 
   async ngOnInit() {
+    this.obterDadosUsuarioPhone();
     await this.photoService.loadSaved();
 
     this.actRouter.params.subscribe((data:any)=>{
@@ -54,9 +58,21 @@ export class AddProdutosPage implements OnInit {
 
             const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
             console.log(obj);
-            return obj.id;
+            if (obj.id == undefined){
+              return this.idUsuario;
+            }else{
+              return obj.id;
+            }  
   }
 
+  obterDadosUsuarioPhone(){
+    this.storage.getItem('session_storage').then((res)=>{
+      this.dadosLogin = res;
+      this.idUsuario = this.dadosLogin.id;
+      this.nivelUsuario = this.dadosLogin.nivel;
+    })
+          
+  }
 
   cadastrar(){
     return new Promise(resolve => {

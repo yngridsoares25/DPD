@@ -33,7 +33,7 @@ export class PhotoService {
         key: this.PHOTO_STORAGE,
         value: JSON.stringify(this.photos)
       });
-
+      console.log(this.photos);
 
   }
 

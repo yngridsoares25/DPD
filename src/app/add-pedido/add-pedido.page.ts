@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage} from '@capacitor/core';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { ToastController } from '@ionic/angular';
 import { Post } from 'src/services/post';
 import { DataService } from '../data.service';
@@ -36,6 +37,7 @@ export class AddPedidoPage implements OnInit {
   qtEstoque: string ="" ;
   qtMinimaPedido: string ="" ;
   back: string="";
+  nivelUsuario: string = "";
 
   dadosLogin: any;
   dt_atual: string ="" ;
@@ -43,13 +45,13 @@ export class AddPedidoPage implements OnInit {
 
 
   customPickerOptions: { buttons: { text: string; handler: () => void; }[]; };
-  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService,public toastController: ToastController) {
+  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService,public toastController: ToastController, private storage: NativeStorage) {
 
    }
 
   ngOnInit() {
     
-
+    this.obterDadosUsuarioPhone();
 
       console.log(this.pedido);
     
@@ -120,6 +122,9 @@ export class AddPedidoPage implements OnInit {
   cadastrar(){
     return new Promise(resolve => {
 
+      var entrega_1 = new Date(this.horario_entrega_1); 
+     
+      var entrega_2 = new Date(this.horario_entrega_1); 
 
       let dados = {
         requisicao : 'add',
@@ -129,8 +134,8 @@ export class AddPedidoPage implements OnInit {
         data_final : this.data_final, 
         idUsuarioComprador : this.obterDadosStorage(), 
         idFornecedor : this.idFornecedor, 
-        horario_entrega_1 : this.horario_entrega_1,
-        horario_entrega_2 : this.horario_entrega_2,
+        horario_entrega_1 : entrega_1.getHours() + ":" + entrega_1.getMinutes(),
+        horario_entrega_2 : entrega_2.getHours() + ":" + entrega_2.getMinutes(),
         endereco : this.endereco,
         cidade : this.cidade,
         estado : this.estado,
@@ -151,8 +156,17 @@ export class AddPedidoPage implements OnInit {
       const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
       console.log(obj.id);
       return obj.id;
+  
 
 
+  }
+  obterDadosUsuarioPhone(){
+    this.storage.getItem('session_storage').then((res)=>{
+      this.dadosLogin = res;
+      this.idUsuario = this.dadosLogin.id;
+      this.nivelUsuario = this.dadosLogin.nivel;
+    })
+          
   }
 
   async mensagemSalvar() {

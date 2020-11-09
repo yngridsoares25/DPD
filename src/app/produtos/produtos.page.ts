@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/services/post';
 import { Storage} from '@capacitor/core';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-produtos',
@@ -19,7 +20,7 @@ export class ProdutosPage implements OnInit {
   groupCategoria: string="";
   idUsuario: string="";
 
-  constructor(private router: Router,  private provider: Post) { }
+  constructor(private router: Router,  private provider: Post, private storage: NativeStorage) { }
 
   ngOnInit() {
   }
@@ -35,8 +36,19 @@ export class ProdutosPage implements OnInit {
     this.router.navigate(['/add-produtos']);
   }
 
+  obterDadosUsuarioPhone(){
+    this.storage.getItem('session_storage').then((res)=>{
+      this.dadosLogin = res;
+      this.idUsuario = this.dadosLogin.id;
+      this.nivelUsuario = this.dadosLogin.nivel;
+    })
+          
+  }
+  
   carregar(){
+    
     this.obterDadosUsuario();
+    this.obterDadosUsuarioPhone();
     return new Promise(resolve => {
   
       this.produtos = [];

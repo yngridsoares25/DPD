@@ -5,6 +5,7 @@ import { Pedido } from './pedido.interface';
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { Storage} from '@capacitor/core';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 @Component({
   selector: 'app-pedidos',
@@ -23,23 +24,28 @@ export class PedidosPage implements OnInit {
   nivelUsuario:string="";
   idUsuario: string="";
 
-  constructor(private router: Router,  private provider: Post,private dataService: DataService) { }
+  constructor(private router: Router,  private provider: Post,private dataService: DataService , private storage: NativeStorage) { }
 
 
 
 
   ngOnInit() {
+    this.carregar();
+
   }
 
   ionViewWillEnter(){
     this.pedidos = [];
     this.start = 0;
-    this.carregar();
+
+
   }
 
   
   carregar(){
     this.obterDadosUsuario();
+    this.obterDadosUsuarioPhone();
+    console.log("METODO CARREGAR");
 
     return new Promise(resolve => {
       this.pedidos = [];
@@ -54,7 +60,7 @@ export class PedidosPage implements OnInit {
         start : this.start
         };
      
-
+       
     
       this.provider.dadosApi(dados, 'apiPedidos.php').subscribe(data => {
 
@@ -150,6 +156,15 @@ obterDadosUsuario(){
   const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
   this.idUsuario = obj.id;
   this.nivelUsuario = obj.nivel;
+        
+}
+
+obterDadosUsuarioPhone(){
+  this.storage.getItem('session_storage').then((res)=>{
+    this.dadosLogin = res;
+    this.idUsuario = this.dadosLogin.id;
+    this.nivelUsuario = this.dadosLogin.nivel;
+  })
         
 }
 
