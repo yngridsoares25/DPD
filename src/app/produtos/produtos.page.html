@@ -44,7 +44,7 @@
       <ion-item>
        
           <ion-avatar slot="start">
-            <img src="assets/img/manga.jpg">
+            <img src={{obterUriFotos(produto.nome_imagem)}}>
           </ion-avatar>
           <ion-label>{{produto.nomeProduto}} - R${{produto.valor}} - {{produto.unidadeMedida}}<br>
                       Vendedor: {{produto.nomeVendedor}}<br>
@@ -60,7 +60,7 @@
         <ion-item-option (click)="mostrar(produto.idProduto, produto.nomeProduto, produto.categoria,produto.valor,produto.unidadeMedida, produto.qtEstoque, produto.qtMinimaPedido , produto.idUsuario,produto.urlImagem)" color="secondary">
           Mostrar
         </ion-item-option>
-        <ion-item-option *ngIf="nivelUsuario == 'Produtor'" (click)="excluir(produto.id)" color="danger">
+        <ion-item-option *ngIf="nivelUsuario == 'Produtor'" (click)="excluir(produto.idProduto)" color="danger">
           Excluir
         </ion-item-option>
       </ion-item-options>

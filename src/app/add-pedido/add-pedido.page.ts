@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { Post } from 'src/services/post';
 import { DataService } from '../data.service';
 import { Pedido } from '../pedidos/pedido.interface';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-add-pedido',
@@ -38,6 +39,8 @@ export class AddPedidoPage implements OnInit {
   qtMinimaPedido: string ="" ;
   back: string="";
   nivelUsuario: string = "";
+  fotos:string [];
+
 
   dadosLogin: any;
   dt_atual: string ="" ;
@@ -45,7 +48,7 @@ export class AddPedidoPage implements OnInit {
 
 
   customPickerOptions: { buttons: { text: string; handler: () => void; }[]; };
-  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService,public toastController: ToastController, private storage: NativeStorage) {
+  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService,public toastController: ToastController, private storage: NativeStorage, public photoService: PhotoService) {
 
    }
 
@@ -98,7 +101,7 @@ export class AddPedidoPage implements OnInit {
         if(data.idPedido == undefined){
           this.back="novo";
         }
-          
+        this.obterFotos(data.idProduto)  
     });
   }
 
@@ -169,12 +172,61 @@ export class AddPedidoPage implements OnInit {
           
   }
 
+  obterDadosUsuario(){
+    this.dadosLogin =  Storage.get({ key: 'session_storage' });
+  
+    const obj  = JSON.parse(this.dadosLogin.__zone_symbol__value.value) || [];
+    this.idUsuario = obj.id;
+    this.nivelUsuario = obj.nivel;
+          
+  }
+  
+
   async mensagemSalvar() {
     const toast = await this.toastController.create({
       message: 'Salvo com Sucesso!!',
       duration: 1000
     });
     toast.present();
+  }
+
+  obterFotos(idProduto){
+
+  
+    return new Promise(resolve => {
+  
+      this.fotos = [];
+      let dados = {
+        requisicao : 'lista_imagem',
+        idProduto : idProduto       
+        };
+
+        this.provider.dadosApi(dados, 'apiProdutos.php').subscribe(data => {
+
+         console.log(data['result']) ;
+        if(data['result'] == '0') {
+          resolve(false);
+        }else{
+          for(let foto of data['result']){
+            this.fotos.push(foto);
+            
+          }
+        }
+         
+       
+         resolve(true);
+         
+        });
+    });
+
+
+
+
+
+  }
+
+  public obterUriFotos(nomeFoto){
+    return this.photoService.obterUriFotos(nomeFoto);
   }
 
 }

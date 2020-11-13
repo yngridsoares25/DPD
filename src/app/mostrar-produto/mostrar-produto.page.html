@@ -12,13 +12,21 @@
 <ion-content>
 
   <ion-card class="cinza-claro">
-    <ion-card-header>
+    <ion-card-header>.
+      <ion-row>
       <ion-card-subtitle>
         Produto:{{nomeProduto}}
       </ion-card-subtitle>
-      <ion-card-title>
-        
-      </ion-card-title>
+    </ion-row>
+
+      <ion-row>
+        <ion-slides>
+          <ion-slide  *ngFor="let foto of fotos">
+           <img src={{obterUriFotos(foto.nome_imagem)}} width="300" height="300"/>
+          </ion-slide>
+        </ion-slides>
+      </ion-row>
+     
     </ion-card-header>
     <ion-card-content>
       Categoria :{{categoria}} <br> 

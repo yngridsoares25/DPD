@@ -11,20 +11,37 @@
 
 <ion-content class="ion-padding">
   <ion-card>
-   
-    <ion-col size="6" 
-      *ngFor="let photo of photoService.photos; index as position; let i = index;">
-  
-        <ion-img [src]="photo.webviewPath"></ion-img>
-        <ion-button *ngIf="photoService.photos.length > 0" position="floating" expand="block" padding color="danger" (click)="deletarFoto(i)"><ion-icon name="trash"></ion-icon></ion-button>
-    </ion-col>
-
-  
-  <ion-item> 
-    <ion-button  position="floating"  padding color="success" (click)="addPhotoToGallery()"><ion-icon name="camera"></ion-icon></ion-button>
-  </ion-item>
     <ion-card-header>
+      
+        <ion-slides >
+          <ion-slide *ngFor="let photo of photoService.photos; index as position; let i = index;">
+            <ion-list>
+             <ion-item>
+               <ion-img [src]="photo.webviewPath" width="400" height="400"></ion-img>
+            </ion-item>
+            <ion-item>
+              <ion-button *ngIf="photoService.photos.length > 0"  padding color="danger" (click)="deletarFoto(i)"><ion-icon name="trash"></ion-icon></ion-button>
+            </ion-item>
+          </ion-list>
+         
+          </ion-slide>
+          <ion-slide *ngFor="let foto of fotos; index as position; let i = index;">
+            <ion-list>
+             <ion-item>
+              <img src={{obterUriFotos(foto.nome_imagem)}} width="300" height="300"/>
+            </ion-item>
+            <ion-item>
+              <ion-button  padding color="danger" (click)="deletarFotoBanco(foto.id,foto.nome_imagem)"><ion-icon name="trash"></ion-icon></ion-button>
+            </ion-item>
+          </ion-list>
+         
+          </ion-slide>
+          
+        </ion-slides>
+        <ion-button  position="floating"  padding color="success" (click)="addPhotoToGallery()"><ion-icon name="camera"></ion-icon></ion-button>
+    </ion-card-header>
 
+    <ion-card-content>
         <ion-item>
           <ion-label position="floating">
             Nome do Produto
@@ -85,7 +102,7 @@
 
       
  
-</ion-card-header>
+  </ion-card-content>
 </ion-card>
 
 <ion-button *ngIf="!idProduto" color="success" expand="block" (click)="cadastrar()">

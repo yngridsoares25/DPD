@@ -1,3 +1,4 @@
+import { PhotoService } from './../services/photo.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/services/post';
@@ -20,9 +21,10 @@ export class ProdutosPage implements OnInit {
   groupCategoria: string="";
   idUsuario: string="";
 
-  constructor(private router: Router,  private provider: Post, private storage: NativeStorage) { }
+  constructor(private router: Router,  private provider: Post, private storage: NativeStorage, private photoService: PhotoService) { }
 
   ngOnInit() {
+    this.carregar();
   }
 
   ionViewWillEnter(){
@@ -49,6 +51,7 @@ export class ProdutosPage implements OnInit {
     
     this.obterDadosUsuario();
     this.obterDadosUsuarioPhone();
+    console.log("AtualizarTela");
     return new Promise(resolve => {
   
       this.produtos = [];
@@ -96,13 +99,14 @@ export class ProdutosPage implements OnInit {
     this.router.navigate(['/add-pedido'], { queryParams: produto,  skipLocationChange: true });
   }
 
-  excluir(id){
+  excluir(idProduto){
     return new Promise(resolve => {
       
       let dados = {
         requisicao : 'excluir',
-        id : id, 
+        idProduto : idProduto, 
         };
+        console.log(dados);
 
         this.provider.dadosApi(dados, 'apiProdutos.php').subscribe(data => {
          this.ionViewWillEnter();
@@ -148,6 +152,10 @@ obterDadosUsuario(){
 
 atualizarCategoria(categoria){
   this.groupCategoria= categoria;
+}
+
+public obterUriFotos(nomeFoto){
+  return this.photoService.obterUriFotos(nomeFoto);
 }
 
 }

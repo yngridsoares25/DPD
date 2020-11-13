@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/services/post';
 import { DataService } from '../data.service';
 import { Storage} from '@capacitor/core';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-mostrar-pedido',
@@ -18,8 +19,9 @@ export class MostrarPedidoPage implements OnInit {
 
   dadosLogin: any;
   dt_atual: string ="" ;
+  fotos:string [];
 
-  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService) { }
+  constructor(private router: Router,private activatedRoute: ActivatedRoute,private provider: Post,private dataService: DataService , public photoService: PhotoService) { }
 
   ngOnInit() {
 
@@ -29,6 +31,7 @@ export class MostrarPedidoPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
         let data = params;
         this.pedido = data;
+        this.obterFotos(this.pedido.idProduto)
     });
 
   }
@@ -54,5 +57,45 @@ export class MostrarPedidoPage implements OnInit {
     this.idUsuario = obj.id;
     this.nivelUsuario = obj.nivel;
           
+  }
+
+  
+  obterFotos(idProduto){
+
+  
+    return new Promise(resolve => {
+  
+      this.fotos = [];
+      let dados = {
+        requisicao : 'lista_imagem',
+        idProduto : idProduto       
+        };
+
+        this.provider.dadosApi(dados, 'apiProdutos.php').subscribe(data => {
+
+         console.log(data['result']) ;
+        if(data['result'] == '0') {
+          resolve(false);
+        }else{
+          for(let foto of data['result']){
+            this.fotos.push(foto);
+            
+          }
+        }
+         
+       
+         resolve(true);
+         
+        });
+    });
+
+
+
+
+
+  }
+
+  public obterUriFotos(nomeFoto){
+    return this.photoService.obterUriFotos(nomeFoto);
   }
 }

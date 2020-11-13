@@ -37,6 +37,7 @@ import {NgxMaskIonicModule} from 'ngx-mask-ionic';
     StatusBar,    
     SplashScreen,
     Post,
+    File,
     NativeStorage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     PhotoService

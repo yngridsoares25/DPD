@@ -1,6 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Injectable } from '@angular/core';
 import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, CameraPhoto, CameraSource, Camera, Filesystem,Storage} from '@capacitor/core';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { File, FileEntry } from '@ionic-native/File/ngx';
+import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +14,10 @@ export class PhotoService {
 
   public photos: Photo[] = [];
   private PHOTO_STORAGE: string = "photos";
-  
+  serverFotos: string = "http://marcoduarte.cf/api/uploads/";
+  serverAPI: string = "http://marcoduarte.cf/api/apiFotos.php";
   // other code
-  constructor() { }
+  constructor(private http: HttpClient,private toastController:ToastController,private file: File,private loadingController: LoadingController,private router: Router) { }
 
 
 
@@ -54,7 +60,7 @@ export class PhotoService {
             path: photo.filepath,
             directory: FilesystemDirectory.Data
         });
-
+        
     // Web platform only: Load the photo as base64 data
         photo.webviewPath = `data:image/jpeg;base64,${readFile.data}`;
     }
@@ -110,6 +116,87 @@ export class PhotoService {
     };
     reader.readAsDataURL(blob);
   });
+
+  public startUpload(strPath) {
+
+    
+
+    this.file.resolveLocalFilesystemUrl(strPath)
+        .then(entry => {
+            ( < FileEntry > entry).file(file => this.readFile(file))
+        })
+        .catch(async err => {
+          const toast = await this.toastController.create({
+            message: 'Erro ao salvar foto!!',
+            duration: 1000
+          });
+          toast.present();
+        });
+  }
+ 
+   readFile(file: any) {
+    const reader = new FileReader();
+    reader.onload = () => {
+        const formData = new FormData();
+        const imgBlob = new Blob([reader.result], {
+            type: file.type
+        });
+        formData.append('file', imgBlob, file.name);
+        this.uploadImageData(formData);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  public async subirFotos(foto: Photo) {
+    const formData = new FormData();
+    let blob = await fetch(foto.webviewPath).then(r => r.blob());
+
+        formData.append('file', blob, foto.filepath);
+        this.uploadImageData(formData);
+    
+  }
+ 
+  async uploadImageData(formData: FormData) {
+    const loading = await this.loadingController.create({
+        message: 'Salvando...',
+    });
+    await loading.present();
+ 
+    this.http.post(this.serverAPI, formData)
+        .pipe(
+            finalize(() => {
+                loading.dismiss();
+
+                this.router.navigate(['/produtos']);
+            })
+         
+        )
+        .subscribe(async res => {
+            console.log(res);
+            if (res['success']) {
+              const toast = await this.toastController.create({
+                message: 'Foto Salva com Sucesso!!',
+                duration: 1000
+              });
+              toast.present();
+            } else {
+              const toast = await this.toastController.create({
+                message: 'Erro ao salvar!!',
+                duration: 1000
+              });
+              toast.present();
+            }
+        });
+    }
+
+    public obterUriFotos(nome_foto){
+      return this.serverFotos + nome_foto ;
+     }
+
+    public servidorFotos(){
+
+      return this.serverFotos;
+    }
 
 
 }

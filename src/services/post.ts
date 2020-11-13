@@ -7,14 +7,14 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Post{
-    server: string = 'http://marcoduarte.cf/api/';
-    //server = 'http://localHost/apiionic/';
+    //server: string = 'http://marcoduarte.cf/api/';
+    server = 'http://localHost/apiionic/';
     constructor(private http : HttpClient){
        
     }
 
 
-     dadosApi(dados: any, api: string){
+        dadosApi(dados: any, api: string){
             const httpOptions = {
                 headers: new HttpHeaders({'Content-Type' : 'application/json'})
                 }

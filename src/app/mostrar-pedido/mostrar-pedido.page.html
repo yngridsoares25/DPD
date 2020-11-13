@@ -19,15 +19,9 @@
     </ion-row>
     <ion-row>
       <ion-slides>
-        <ion-slide>
-         <img src="assets/img/manga.jpg" width="300" height="300"/>
+        <ion-slide  *ngFor="let foto of fotos">
+         <img src={{obterUriFotos(foto.nome_imagem)}} width="300" height="300"/>
         </ion-slide>
-        <ion-slide>
-          <img src="assets/img/manga2.jpg" width="300" height="300"/>
-         </ion-slide>
-         <ion-slide>
-          <img src="assets/img/manga3.jpg" width="300" height="300"/>
-         </ion-slide>
       </ion-slides>
     </ion-row>
 

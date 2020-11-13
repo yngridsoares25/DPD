@@ -32,7 +32,7 @@
       
       <ion-item (click)="mostrar(pedido)">
         <ion-avatar slot="start">
-          <img src="assets/img/manga.jpg">
+          <img src={{obterUriFotos(pedido.nome_imagem)}}>
         </ion-avatar>
         <ion-label>
           <h2>{{pedido.nomeProduto}}</h2>

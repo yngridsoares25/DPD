@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
 import { Storage} from '@capacitor/core';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -24,7 +25,7 @@ export class PedidosPage implements OnInit {
   nivelUsuario:string="";
   idUsuario: string="";
 
-  constructor(private router: Router,  private provider: Post,private dataService: DataService , private storage: NativeStorage) { }
+  constructor(private router: Router,  private provider: Post,private dataService: DataService , private storage: NativeStorage , private photoService: PhotoService) { }
 
 
 
@@ -167,7 +168,9 @@ obterDadosUsuarioPhone(){
   })
         
 }
-
+public obterUriFotos(nomeFoto){
+  return this.photoService.obterUriFotos(nomeFoto);
+}
 
 }
 
