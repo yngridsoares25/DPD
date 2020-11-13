@@ -33,6 +33,11 @@ export class AppComponent implements OnInit {
       title: 'Produtos',
       url: '/produtos',
       icon: 'nutrition'
+    },
+    {
+      title: 'Configurações',
+      url: '/configuracoes',
+      icon: 'settings'
     }
     
     

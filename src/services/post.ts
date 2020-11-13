@@ -13,8 +13,8 @@ export class Post{
        
     }
 
-
         dadosApi(dados: any, api: string){
+
             const httpOptions = {
                 headers: new HttpHeaders({'Content-Type' : 'application/json'})
                 }

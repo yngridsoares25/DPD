@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/services/post';
 import { Storage} from '@capacitor/core';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-usuarios',
@@ -19,7 +20,7 @@ export class UsuariosPage implements OnInit {
   idUsuarioLogado: string;
   dadosLogin: any;
 
-  constructor(private router: Router,  private provider: Post) { }
+  constructor(private router: Router,  private provider: Post, public alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -74,7 +75,7 @@ export class UsuariosPage implements OnInit {
 
   
   excluir(id){
-    return new Promise(resolve => {
+        return new Promise(resolve => {
       
       let dados = {
         requisicao : 'excluir',
@@ -122,7 +123,31 @@ loadData(event) {
   
 
 }
-  
+ 
+async  confirmarExcluir(id) {
+  const alert = await this.alertController.create({
+    header: 'Tem certeza que deseja excluir?',
+    message: 'Não será possivel desfazer o processo após a exclusão do cadastro.',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+         
+        }
+      }, {
+        text: 'Okay',
+        handler: () => {
+         this.excluir(id);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
   
 
 }
