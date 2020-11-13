@@ -73,7 +73,28 @@ const routes: Routes = [
     path: 'add-usuario/:urlVoltar',
       loadChildren: () => import('./add-usuario/add-usuario.module').then( m => m.AddUsuarioPageModule)
     },
-];
+  {
+    path: 'configuracoes',
+    loadChildren: () => import('./configuracoes/configuracoes.module').then( m => m.ConfiguracoesPageModule)
+  },
+  {
+    path: 'categorias',
+    loadChildren: () => import('./categorias/categorias.module').then( m => m.CategoriasPageModule)
+  },
+  {
+    path: 'add-categorias',
+    loadChildren: () => import('./add-categorias/add-categorias.module').then( m => m.AddCategoriasPageModule)
+  },
+  {
+    path: 'mostrar-categorias',
+    loadChildren: () => import('./mostrar-categorias/mostrar-categorias.module').then( m => m.MostrarCategoriasPageModule)
+  },
+  {
+    path: 'add-categorias/:id/:nomeCategoria',
+    loadChildren: () => import('./add-categorias/add-categorias.module').then( m => m.AddCategoriasPageModule)
+  },
+
+  ];
 
 @NgModule({
   imports: [

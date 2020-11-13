@@ -27,6 +27,7 @@
 
 
 
+
 <ion-content class="cinza-claro" class="ion-padding">
 <ion-list>
   <ion-item-sliding *ngFor="let usuario of usuarios">
@@ -42,12 +43,13 @@
       <ion-item-option (click)="mostrar(usuario.id, usuario.nome, usuario.usuario, usuario.senha_original, usuario.nivel)" color="secondary">
         Mostrar
       </ion-item-option>
-      <ion-item-option *ngIf="idUsuarioLogado == usuario.id" (click)="excluir(usuario.id)" color="danger">
+      <ion-item-option *ngIf="idUsuarioLogado == usuario.id" (click)="confirmarExcluir(usuario.id)" color="danger">
         Excluir
       </ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
 </ion-list>
+
 
 
 <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
